@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
     use App\User;
     use App\Todo;
+    use App\Complete;
     use Illuminate\Http\Request;
     use Validator;
 
@@ -15,31 +16,46 @@ class TimeController extends Controller
             $search_date = date("Y-m-d");
         }
 
-        $todos = Tdoo::where('deleted_yn', false)
+        $todos = Todo::where('deleted_yn', false)
             ->where('user_id', $request->user()->id)
             ->wheredate('sdate', '<=', $search_date)
             ->wheredate('edate', '>=', $search_date)
             ->get();
 
         foreach ($todos as $todo){
-            if($search_date > date("Y-m-d", strtotime($todo->sdate))){
-                $todo->v_sdate = $search_date;
-                $todo->v_time = date("H:i", 0);
+            $todo->v_stime = $todo->stime;
+            $todo->v_etime = $todo->etime;
+            if(Complete::where('todo_id', $todo->id)
+                ->whereDate('edate', $search_date)
+                ->value('id')){
+                $todo->today_c = 1;
+                $todo->position = 1;
+                $todo->v_stime = Complete::where('todo_id', $todo->id)
+                    ->whereDate('edate', $search_date)
+                    ->value('stime');
+                $todo->v_etime = Complete::where('todo_id', $todo->id)
+                    ->whereDate('edate', $search_date)
+                    ->value('etime');;
             }else{
-                $todo->v_sdate = $todo->sdate;
-                $todo->v_stime = $todo->stime;
+                $todo->today_c = 0;
+                $todo->position = 0;
+                if($search_date > date("Y-m-d", strtotime($todo->sdate))){
+                    $todo->v_sdate = $search_date;
+                    $todo->v_stime = date("H:i", strtotime("00:00"));
+                    $todo->position = 2;
+                }
+                if($search_date < date("Y-m-d", strtotime($todo->edate))){
+                    $todo->v_sdate = $search_date;
+                    $todo->v_etime = date("H:i", strtotime("23:59"));
+                    $todo->position = 3;
+                }
             }
-
-            if($search_date < date("Y-m-d", strtotime($todo->edate))){
-                $todo->v_sdate = $search_date;
-                $todo->v_time = date("H:i", 0);
-            }
-            $todo->minus = (int)date("d",(strtotime($todo->edate) - strtotime($todo->sdate)));
         }
-        return view('calendar/daily',[
+
+        $todos = $todos->sortBy('position');
+        return view('times/index',[
             'request' => $request,
-            'members' => $members,
-            'schedules' => $schedules,
+            'todos' => $todos,
         ]);
     }
 
@@ -62,26 +78,6 @@ class TimeController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'sdate' => 'required',
-            'edate' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect(route('calendar.create'))
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        $schedule = new Schedule;
-        $schedule->title = $request->title;
-        $schedule->member_id = $request->user()->member_id;
-        $schedule->sdate = $request->sdate;
-        $schedule->edate = $request->edate;
-        $schedule->save();
-
-        return redirect(route('calendar.index'));
     }
 
     /**

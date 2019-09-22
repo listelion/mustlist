@@ -13,40 +13,30 @@
             dataTable.addColumn({ type: 'date', id: 'Start' });
             dataTable.addColumn({ type: 'date', id: 'End' });
             dataTable.addRows([
-                    @foreach($members as $member)
-                [ '{{$member->name}}', '출', new Date(0,0,0,8,30,0), new Date(0,0,0,8,30,0) ],
-                [ '{{$member->name}}', '퇴', new Date(0,0,0,18,0,0), new Date(0,0,0,18,0,0) ],
-                    @endforeach
-                    @foreach($schedules as $schedule)
-                    @if($schedule->allday =='y')
-                [ '{{$schedule->member_name}}', '{{$schedule->title}}', new Date(0,0,0,8,30,0), new Date(0,0,0,18,0,0) ],
-                    @else
-                [ '{{$schedule->member_name}}', '{{$schedule->title}}', new Date(0,0,0,{{$schedule->stimeH}},{{$schedule->stimeM}},0), new Date(0,0,0,{{$schedule->etimeH}},{{$schedule->etimeM}},0) ],
-                @endif
+                @foreach($todos as $todo)
+                    @if($todo->today_c > 0)
+                    [ '완료', '{{$todo->name}}', new Date(0,0,0,{{date("H",strtotime($todo->v_stime))}},{{date("i",strtotime($todo->v_stime))}},0), new Date(0,0,0,{{date("H",strtotime($todo->v_etime))}},{{date("i",strtotime($todo->v_etime))}},0) ],
+                    @elseif($todo->position == 0)
+                    [ '예정', '{{$todo->name}}', new Date(0,0,0,{{date("H",strtotime($todo->v_stime))}},{{date("i",strtotime($todo->v_stime))}},0), new Date(0,0,0,{{date("H",strtotime($todo->v_etime))}},{{date("i",strtotime($todo->v_etime))}},0) ],
+                    @elseif($todo->today_c == 0)
+                    [ '할일', '{{$todo->name}}', new Date(0,0,0,{{date("H",strtotime($todo->v_stime))}},{{date("i",strtotime($todo->v_stime))}},0), new Date(0,0,0,{{date("H",strtotime($todo->v_etime))}},{{date("i",strtotime($todo->v_etime))}},0) ],
+                    @endif
                 @endforeach
             ]);
-            var options = {
-                timeline: { colorByRowLabel: true }
-            };
 
-            chart.draw(dataTable, options);
+            chart.draw(dataTable);
         }
     </script>
     <div class="wrapper">
-        <a class="btn btn-primary float-left ml-2" href="{{route('calendar.create')}}" role="button">일정 등록</a>
-        <nav class="tabs">
-            <div class="selector"></div>
-            <a href="/calendar" class="active">하루일정표</a>
-            <a href="/calendar/weekly">주간일정표</a>
-        </nav>
+        <a class="btn btn-primar ml-2" href="" role="button">한일 등록</a>
         <div class="float-right mr-2">
-            <form class="input-group-prepend" action="/calendar" method="get">
-                <input type="date" id="search_date" name="search_date" class="form-control float-right" value="@if($request->search_date > 0){{$request->search_date}}@else{{date('Y-m-d')}}@endif">
-                <button type="submit" class="btn btn-primary">검색</button>
+            <form class="input-group-prepend" action="/time" method="get">
+                <input type="date" id="search_date" name="search_date" class="form-control" value="@if($request->search_date > 0){{$request->search_date}}@else{{date('Y-m-d')}}@endif">
+                <button style="width:60px;" type="submit" class="ml-2 btn btn-primary btn-sm">검색</button>
             </form>
         </div>
     </div>
-    <div id="daily" style="max-width:1000px; min-height: 750px"></div>
+    <div id="daily" class="mt-2" style="max-width:1000px; min-height: 750px"></div>
     <script>
 
     </script>

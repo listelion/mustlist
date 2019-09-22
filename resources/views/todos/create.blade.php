@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label for="etime">종료시간</label>
-                <input type="time" class="form-control" id="etime" name="etime">
+                <input type="time" class="form-control" id="etime" name="etime" value="<?php echo date("H:i");?>">
             </div>
             <div class="form-group">
                 <div class="form-check form-check-inline">
@@ -61,15 +61,6 @@
                     <label class="form-check-label" for="repeat">아니요</label>
                     <input class="form-check-input ml-2" type="radio" name="repeat" value="1">
                     <label class="form-check-label" for="repeat">예</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="form-check form-check-inline">
-                    완료
-                    <input class="form-check-input ml-2" type="radio" name="completed" value="0" checked="checked">
-                    <label class="form-check-label" for="completed">아니요</label>
-                    <input class="form-check-input ml-2" type="radio" name="completed" value="1">
-                    <label class="form-check-label" for="completed">예</label>
                 </div>
             </div>
             <button type="submit" class="float-right mr-3 btn btn-primary btn-lg">Submit</button>

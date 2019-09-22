@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Todo;
-use App\Todo_complete;
+use App\Complete;
 use App\User;
 use App\Category;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class TodoController extends Controller
             ->get();
         foreach ($todos as $todo){
             $todo->category = Category::where('id',$todo->category_id)->value('name');
-            if(Todo_complete::where('todo_id', $todo->id)
+            if(Complete::where('todo_id', $todo->id)
                 ->whereDate('edate', date("Y-m-d"))
                 ->value('id')){
                 $todo->today_c = 1;
@@ -95,7 +95,6 @@ class TodoController extends Controller
         $todo->edate = $request->edate;
         $todo->etime = $request->etime;
         $todo->repeat = $request->repeat;
-        $todo->completed = $request->completed;
         $todo->save();
 
         return redirect(route('todo.index'));
@@ -169,7 +168,6 @@ class TodoController extends Controller
         $todo->edate = $request->edate;
         $todo->etime = $request->etime;
         $todo->repeat = $request->repeat;
-        $todo->completed = $request->completed;
         $todo->save();
 
         return redirect(route('todo.index'));
@@ -205,7 +203,7 @@ class TodoController extends Controller
             $todo->save();
         }
 
-        $todo_complete = new Todo_complete;
+        $todo_complete = new Complete;
         $todo_complete->sdate = $request->sdate;
         $todo_complete->edate = $request->edate;
         $todo_complete->stime = $request->stime;
