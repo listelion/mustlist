@@ -36,7 +36,7 @@
             </form>
         </div>
     </div>
-    <div id="daily" class="mt-2" style="max-width:1000px; min-height: 750px"></div>
+    <div id="daily" class="mt-2" style="min-height: 750px"></div>
     <script>
 
     </script>

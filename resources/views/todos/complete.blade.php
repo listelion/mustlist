@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <form action="{{route('todo.complete_store', $todo->id)}}" method="POST">
+        <form action="{{route('todo.completeStore', $todo->id)}}" method="POST">
             @csrf
             <div class="form-group">
                 {{$todo->name}}
