@@ -14,11 +14,11 @@
             dataTable.addColumn({ type: 'date', id: 'End' });
             dataTable.addRows([
                 @foreach($todos as $todo)
-                    @if($todo->today_c > 0)
+                    @if($todo->is_today_completed > 0)
                     [ '완료', '{{$todo->name}}', new Date(0,0,0,{{date("H",strtotime($todo->v_stime))}},{{date("i",strtotime($todo->v_stime))}},0), new Date(0,0,0,{{date("H",strtotime($todo->v_etime))}},{{date("i",strtotime($todo->v_etime))}},0) ],
                     @elseif($todo->position == 0)
                     [ '예정', '{{$todo->name}}', new Date(0,0,0,{{date("H",strtotime($todo->v_stime))}},{{date("i",strtotime($todo->v_stime))}},0), new Date(0,0,0,{{date("H",strtotime($todo->v_etime))}},{{date("i",strtotime($todo->v_etime))}},0) ],
-                    @elseif($todo->today_c == 0)
+                    @elseif($todo->is_today_completed == 0)
                     [ '할일', '{{$todo->name}}', new Date(0,0,0,{{date("H",strtotime($todo->v_stime))}},{{date("i",strtotime($todo->v_stime))}},0), new Date(0,0,0,{{date("H",strtotime($todo->v_etime))}},{{date("i",strtotime($todo->v_etime))}},0) ],
                     @endif
                 @endforeach

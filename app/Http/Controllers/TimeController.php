@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Todo;
-use App\Complete;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -45,12 +44,12 @@ class TimeController extends Controller
 //            $todo->v_stime = $todo->stime;
 //            $todo->v_etime = $todo->etime;
 //            if ($complete instanceof Complete) {
-//                $todo->today_c = 1;
+//                $todo->is_today_completed = 1;
 //                $todo->position = 1;
 //                $todo->v_stime = $complete->stime;
 //                $todo->v_etime = $complete->etime;
 //            } else {
-//                $todo->today_c = 0;
+//                $todo->is_today_completed = 0;
 //                $todo->position = 0;
 //                if ($searchDate > $todo->sdate) {
 //                    $todo->v_sdate = $searchDate;
