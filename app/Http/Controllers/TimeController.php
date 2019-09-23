@@ -34,6 +34,7 @@ class TimeController extends Controller
          * - todo의 v-stime, v-etime 이 date 인지 datetime 인지를 구분해서 컬럼에 추가해주세요.
          * - migration 에 migration 파일이 없으니 무슨 컬럼인지 혹은 테스트 스키마를 만들수가 없습니다.
          * - foreach 로 저런식의 set 은 사용시 주의 해야 합니다. setAttribute 를 사용하는게 좋아요.
+         * - collection map 함수를 사용해서 간소화 하세요.
          */
 //        foreach ($todos as $todo) {
 //            /** @var Complete $complete */
