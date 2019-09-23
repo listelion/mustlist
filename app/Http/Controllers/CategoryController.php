@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Category;
 use App\User;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class CategoryController extends Controller
             ->where('deleted_yn', false)
             ->get();
 
-        return view('categories/create',[
+        return view('categories/create', [
             'categories' => $categories,
         ]);
     }

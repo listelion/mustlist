@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Todo;
 use App\Complete;
 use App\User;
@@ -29,13 +30,13 @@ class TodoController extends Controller
             ->where('completed', false)
             ->orderBy('level', 'desc')
             ->get();
-        foreach ($todos as $todo){
-            $todo->category = Category::where('id',$todo->category_id)->value('name');
-            if(Complete::where('todo_id', $todo->id)
+        foreach ($todos as $todo) {
+            $todo->category = Category::where('id', $todo->category_id)->value('name');
+            if (Complete::where('todo_id', $todo->id)
                 ->whereDate('edate', date("Y-m-d"))
-                ->value('id')){
+                ->value('id')) {
                 $todo->today_c = 1;
-            }else{
+            } else {
                 $todo->today_c = 0;
             }
         }
@@ -108,7 +109,6 @@ class TodoController extends Controller
      */
     public function show($id, Request $request)
     {
-
     }
 
     /**
@@ -198,7 +198,7 @@ class TodoController extends Controller
     public function complete_store($id, Request $request)
     {
         $todo = Todo::find($id);
-        if($todo->repeat == 0){
+        if ($todo->repeat == 0) {
             $todo->completed = 1;
             $todo->save();
         }
