@@ -19,8 +19,10 @@ class TimeController extends Controller
             $request->input('search_date', '1970-01-01')
         );
 
-        $todos = Todo::where('deleted_yn', false)
-            ->where('user_id', $user->id)
+        /**
+         * TODO : deleted_at 을 쓰면 soft_delete 를 쓸수 있습니다.
+         */
+        $todos = Todo::where('user_id', $user->id)
             ->wheredate('sdate', '<=', $searchDate)
             ->wheredate('edate', '>=', $searchDate)
             ->with(['complete'])
