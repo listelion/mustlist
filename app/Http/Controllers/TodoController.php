@@ -195,7 +195,8 @@ class TodoController extends Controller
             'todo' => $todo,
         ]);
     }
-    public function complete_store($id, Request $request)
+
+    public function completeStore($id, Request $request)
     {
         $todo = Todo::find($id);
         if ($todo->repeat == 0) {

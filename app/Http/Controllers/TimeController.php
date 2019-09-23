@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
     use App\User;
     use App\Todo;
     use App\Complete;
@@ -12,7 +13,7 @@ class TimeController extends Controller
     public function index(Request $request)
     {
         $search_date = date("Y-m-d", strtotime($request->search_date));
-        if($search_date == "1970-01-01") {
+        if ($search_date == "1970-01-01") {
             $search_date = date("Y-m-d");
         }
 
@@ -22,12 +23,12 @@ class TimeController extends Controller
             ->wheredate('edate', '>=', $search_date)
             ->get();
 
-        foreach ($todos as $todo){
+        foreach ($todos as $todo) {
             $todo->v_stime = $todo->stime;
             $todo->v_etime = $todo->etime;
-            if(Complete::where('todo_id', $todo->id)
+            if (Complete::where('todo_id', $todo->id)
                 ->whereDate('edate', $search_date)
-                ->value('id')){
+                ->value('id')) {
                 $todo->today_c = 1;
                 $todo->position = 1;
                 $todo->v_stime = Complete::where('todo_id', $todo->id)
@@ -35,16 +36,17 @@ class TimeController extends Controller
                     ->value('stime');
                 $todo->v_etime = Complete::where('todo_id', $todo->id)
                     ->whereDate('edate', $search_date)
-                    ->value('etime');;
-            }else{
+                    ->value('etime');
+                ;
+            } else {
                 $todo->today_c = 0;
                 $todo->position = 0;
-                if($search_date > date("Y-m-d", strtotime($todo->sdate))){
+                if ($search_date > date("Y-m-d", strtotime($todo->sdate))) {
                     $todo->v_sdate = $search_date;
                     $todo->v_stime = date("H:i", strtotime("00:00"));
                     $todo->position = 2;
                 }
-                if($search_date < date("Y-m-d", strtotime($todo->edate))){
+                if ($search_date < date("Y-m-d", strtotime($todo->edate))) {
                     $todo->v_sdate = $search_date;
                     $todo->v_etime = date("H:i", strtotime("23:59"));
                     $todo->position = 3;
@@ -53,7 +55,7 @@ class TimeController extends Controller
         }
 
         $todos = $todos->sortBy('position');
-        return view('times/index',[
+        return view('times/index', [
             'request' => $request,
             'todos' => $todos,
         ]);
@@ -66,7 +68,7 @@ class TimeController extends Controller
      */
     public function create()
     {
-        return view('calendar/create',[
+        return view('calendar/create', [
         ]);
     }
 

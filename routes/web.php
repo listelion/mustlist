@@ -18,7 +18,7 @@ Route::get('/category/create', 'CategoryController@create')->name('categories.cr
 Route::post('/category', 'CategoryController@store')->name('categories.store');
 
 Route::get('/todo/{todo}/complete', 'TodoController@complete')->name('todo.complete');
-Route::post('/todo/{todo}/complete', 'TodoController@complete_store')->name('todo.complete_store');
+Route::post('/todo/{todo}/complete', 'TodoController@completeStore')->name('todo.complete_store');
 
 Route::resource('todo', 'TodoController');
 Route::resource('time', 'TimeController');
