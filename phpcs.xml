@@ -14,6 +14,7 @@
     If no files or directories are specified on the command line
     your custom standard can specify what files should be checked
     instead.
+
     Note that specifying any file or directory path
     on the command line will ignore all file tags.
     -->
@@ -47,10 +48,11 @@
        You can hard-code command line values into your custom standard.
        Note that this does not work for the command line values:
        -v[v][v], -l, -d, -sniffs and -standard
+
        The following tags are equivalent to the command line arguments:
        -p
     -->
-    <!--<arg name="report" value="summary"/>-->
+    <arg name="report" value="summary"/>
     <arg name="colors"/>
     <arg value="p"/>
 

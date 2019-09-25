@@ -9,16 +9,14 @@ class Todo extends Model
 {
     use SoftDeletes;
 
-    /** Relations */
-
-    public function completes()
+    public function complete()
     {
-        return $this->hasMany(Complete::class);
+        return $this->belongsTo(Complete::class);
     }
 
-    public function user()
+    public function category()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Category::class);
     }
 
     /** Mutator */

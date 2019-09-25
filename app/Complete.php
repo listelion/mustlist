@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Complete extends Model
 {
-    public function todo()
+    use SoftDeletes;
+
+    public function todos()
     {
-        return $this->belongsTo(Todo::class);
+        return $this->hasMany(Todo::class);
     }
 }

@@ -14,7 +14,6 @@ class CategoryController extends Controller
         $user_id = $request->user()->id;
         $categories = User::find($user_id)
             ->categories()
-            ->where('deleted_yn', false)
             ->get();
 
         return view('categories/create', [
