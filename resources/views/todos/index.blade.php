@@ -34,7 +34,7 @@
                     @if($todo->level > 1)<span class="badge badge-danger">상</span>
                     @elseif($todo->level === 1)<span class="badge badge-warning">중</span>
                     @else<span class="badge badge-info">하</span>@endif
-                        @if($todo->today_c == 1) <del>@endif
+                        @if($todo->is_today_completed == 1) <del>@endif
                     {{$todo->name}}</del>
                         <div class="form-inline float-right">
                         <a style="font-size:12px;" href="{{ route('todo.edit', $todo->id) }}">수정</a>
@@ -55,7 +55,7 @@
                         @else {{$todo->sdate}} {{$todo->stime}} ~ {{$todo->edate}} {{$todo->etime}}
                         @endif
                     </p>
-                        @if($todo->today_c == 0)<a href="{{route('todo.complete', $todo->id)}}" class="btn btn-success btn-sm">완료</a>@endif
+                        @if($todo->is_today_completed == 0)<a href="{{route('todo.complete', $todo->id)}}" class="btn btn-success btn-sm">완료</a>@endif
                 </div>
             </div>
             @endforeach

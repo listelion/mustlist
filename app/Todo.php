@@ -18,4 +18,13 @@ class Todo extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /** Mutator */
+
+    public function isTodayCompletedAttribute(): bool
+    {
+        return $this->completes()
+            ->where('edate', now())
+            ->exists();
+    }
 }
