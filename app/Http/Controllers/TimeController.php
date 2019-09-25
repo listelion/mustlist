@@ -14,13 +14,15 @@ class TimeController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $searchDate = date("Y-m-d", strtotime($request->search_date));
-        if ($searchDate == "1970-01-01") {
-            $searchDate = date("Y-m-d");
+        $searchDate = Carbon::now()->format("Y-m-d");
+        if(isset($request->searchDate)) {
+            $searchDate = Carbon::createFromFormat(
+                'Y-m-d',
+                $request->input('searchDate')
+            )->format("Y-m-d");
         }
 
-        $todos = Todo::where('deleted_yn', false)
-            ->where('user_id', $user->id)
+        $todos = Todo::where('user_id', $user->id)
             ->wheredate('sdate', '<=', $searchDate)
             ->wheredate('edate', '>=', $searchDate)
             ->get();

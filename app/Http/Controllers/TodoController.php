@@ -8,6 +8,7 @@ use App\User;
 use App\Category;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Support\Carbon;
 
 class TodoController extends Controller
 {
@@ -21,15 +22,14 @@ class TodoController extends Controller
         $user_id = $request->user()->id;
         $categories = User::find($user_id)
             ->categories()
-            ->where('deleted_yn', false)
             ->get();
 
         $todos = User::find($user_id)
             ->todos()
-            ->where('deleted_yn', false)
             ->where('completed', false)
             ->orderBy('level', 'desc')
             ->get();
+
         foreach ($todos as $todo) {
             $todo->category = Category::where('id', $todo->category_id)->value('name');
             if (Complete::where('todo_id', $todo->id)
@@ -57,7 +57,6 @@ class TodoController extends Controller
         $user_id = $request->user()->id;
         $categories = User::find($user_id)
             ->categories()
-            ->where('deleted_yn', false)
             ->get();
 
         return view('todos/create', [
@@ -123,7 +122,6 @@ class TodoController extends Controller
         $user_id = $request->user()->id;
         $categories = User::find($user_id)
             ->categories()
-            ->where('deleted_yn', false)
             ->get();
 
         $todo = User::find($user_id)
@@ -184,6 +182,7 @@ class TodoController extends Controller
     {
         $todo = Todo::find($id);
         $todo->deleted_yn = 1;
+        $todo->deleted_at = Carbon::now();
         $todo->save();
         return redirect(route('todo.index'));
     }

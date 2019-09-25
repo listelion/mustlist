@@ -27,8 +27,7 @@ class CreateTodosTable extends Migration
             $table->boolean('repeat')->default(false);
             $table->boolean('completed')->default(false);
             $table->timestamps();
-            $table->datetime('deleted_at');
-            $table->boolean('delete_yn')->default(false);
+            $table->softDeletes();
         });
     }
 

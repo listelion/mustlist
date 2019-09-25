@@ -31,7 +31,7 @@
         <a class="btn btn-primar ml-2" href="" role="button">한일 등록</a>
         <div class="float-right mr-2">
             <form class="input-group-prepend" action="/time" method="get">
-                <input type="date" id="search_date" name="search_date" class="form-control" value="@if($request->search_date > 0){{$request->search_date}}@else{{date('Y-m-d')}}@endif">
+                <input type="date" id="searchDate" name="searchDate" class="form-control" value="@if($request->searchDate > 0){{$request->searchDate}}@else{{date('Y-m-d')}}@endif">
                 <button style="width:60px;" type="submit" class="ml-2 btn btn-primary btn-sm">검색</button>
             </form>
         </div>

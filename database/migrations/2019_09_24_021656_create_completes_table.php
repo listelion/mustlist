@@ -21,6 +21,7 @@ class CreateCompletesTable extends Migration
             $table->date('stime');
             $table->date('etime');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
