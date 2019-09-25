@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use SoftDeletes;
+
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function todos()
     {
-        return $this->belongsTo('App\Todo');
+        return $this->hasMany(Todo::class);
     }
 }
