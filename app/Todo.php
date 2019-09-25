@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Todo extends Model
 {
     use SoftDeletes;
-    public function completes()
+
+    public function complete()
     {
-        return $this->hasMany('App\Complete');
+        return $this->belongsTo(Complete::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

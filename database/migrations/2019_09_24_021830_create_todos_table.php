@@ -15,19 +15,20 @@ class CreateTodosTable extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->increments('user_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('category_id');
             $table->string('name');
             $table->text('content');
-            $table->increments('level');
-            $table->increments('category_id');
-            $table->date('sdate');
-            $table->date('edate');
-            $table->time('stime');
-            $table->time('etime');
+            $table->unsignedInteger('level');
+            $table->dateTime('start_datetime');
+            $table->dateTime('end_datetime');
             $table->boolean('repeat')->default(false);
             $table->boolean('completed')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

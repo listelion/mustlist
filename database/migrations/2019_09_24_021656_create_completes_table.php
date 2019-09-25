@@ -15,13 +15,15 @@ class CreateCompletesTable extends Migration
     {
         Schema::create('completes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->Increments('todo_id');
+            $table->unsignedInteger('todo_id');
             $table->date('sdate');
             $table->date('edate');
             $table->date('stime');
             $table->date('etime');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('todo_id')->references('id')->on('todos');
         });
     }
 
