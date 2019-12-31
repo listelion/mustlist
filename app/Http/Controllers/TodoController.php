@@ -24,10 +24,12 @@ class TodoController extends Controller
             ->categories()
             ->get();
 
+        $request->input('complete') ? $completed = 1: $completed = 0;
         $todos = User::find($user_id)
             ->todos()
-            ->where('completed', false)
+            ->where('completed', $completed)
             ->orderBy('level', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         foreach ($todos as $todo) {

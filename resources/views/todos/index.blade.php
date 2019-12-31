@@ -4,10 +4,10 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Todo</a>
+                    <a class="nav-link active" href="/todo">Todo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Complete</a>
+                    <a class="nav-link" href="/todo?complete=1">Complete</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Repeat</a>

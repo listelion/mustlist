@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Todo');
     }
+
+    public function memories()
+    {
+        return $this->hasMany('App\Memory');
+    }
 }

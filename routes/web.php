@@ -13,13 +13,20 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('/category/create', 'CategoryController@create')->name('categories.create');
-Route::post('/category', 'CategoryController@store')->name('categories.store');
+Route::get('/', 'HomeController@index')->middleware('auth');
+Route::get('/test', 'HomeController@test');
+Route::get('/category/create', 'CategoryController@create')->name('categories.create')->middleware('auth');
+Route::post('/category', 'CategoryController@store')->name('categories.store')->middleware('auth');
 
-Route::get('/todo/{todo}/complete', 'TodoController@complete')->name('todo.complete');
-Route::post('/todo/{todo}/complete', 'TodoController@completeStore')->name('todo.completeStore');
+Route::get('/todo/{todo}/complete', 'TodoController@complete')->name('todo.complete')->middleware('auth');
+Route::post('/todo/{todo}/complete', 'TodoController@completeStore')->name('todo.completeStore')->middleware('auth');
 
-Route::resource('todo', 'TodoController');
-Route::resource('time', 'TimeController');
-Route::resource('memory', 'MemoryController');
+Route::resource('todo', 'TodoController')->middleware('auth');
+Route::resource('time', 'TimeController')->middleware('auth');
+Route::resource('memory', 'MemoryController')->middleware('auth');
+Route::resource('word', 'WordController')->middleware('auth');
+Route::resource('korean_gubun', 'Korean_gubunController')->middleware('auth');
+
+Route::get('/study', 'StudyController@index')->middleware('auth');
+Route::get('/study/create', 'StudyController@create')->middleware('auth');
+

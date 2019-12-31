@@ -37,11 +37,11 @@
                         <label class="form-check-label" for="inlineCheckbox1">무기한</label>
                     </div>
                 </label>
-                <input type="date" class="form-control" id="edate" name="edate" value="<?php echo date("Y-m-d");?>">
+                <input type="date" class="form-control" id="edate" name="edate" value="9999-12-31">
             </div>
             <div class="form-group">
                 <label for="etime">종료시간</label>
-                <input type="time" class="form-control" id="etime" name="etime" value="<?php echo date("H:i");?>">
+                <input type="time" class="form-control" id="etime" name="etime" value="11:59">
             </div>
             <div class="form-group">
                 <div class="form-check form-check-inline">

@@ -5,12 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Complete extends Model
+class English extends Model
 {
     use SoftDeletes;
 
-    public function todo()
+    public function koreans()
     {
-        return $this->belongsTo(Todo::class);
+        return $this->belongsToMany('App\Korean');
     }
 }

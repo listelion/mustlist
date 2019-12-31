@@ -14,8 +14,10 @@ class TimeController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $searchDate = Carbon::now()->format("Y-m-d");
-        if(isset($request->searchDate)) {
+        $search = Carbon::now();
+        $searchDate = $search->format("Y-m-d");
+        $weekDate = $search->subWeeks(1);
+        if (isset($request->searchDate)) {
             $searchDate = Carbon::createFromFormat(
                 'Y-m-d',
                 $request->input('searchDate')
@@ -30,9 +32,10 @@ class TimeController extends Controller
         foreach ($todos as $todo) {
             $todo->v_stime = $todo->stime;
             $todo->v_etime = $todo->etime;
+            
             if (Complete::where('todo_id', $todo->id)
-                ->whereDate('sdate', '<=', $searchDate)
-                ->whereDate('edate', '>=', $searchDate)
+                ->where('sdate', '<=', $searchDate)
+                ->where('edate', '>=', $searchDate)
                 ->value('id') > 0) {
                 $todo->today_c = 1;
                 $todo->position = 1;
@@ -67,9 +70,22 @@ class TimeController extends Controller
         }
 
         $todos = $todos->sortBy('position');
+
+//        $weekly = Complete::wheredate('sdate', '<=', $searchDate)
+//            ->wheredate('edate', '>=', $weekDate)
+//            ->with('todo')
+//            ->get();
+//        dd($weekly);
+//        foreach ($weekly as $week){
+//            $week->v_stime = $week->stime;
+//            $week->v_etime = $week->etime;
+//
+//        }
+
         return view('times/index', [
             'request' => $request,
             'todos' => $todos,
+//            'weekly' => $weekly,
         ]);
     }
 

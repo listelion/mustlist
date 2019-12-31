@@ -11,11 +11,11 @@
             </div>
             <div class="form-group">
                 <label for="sdate">시작일</label>
-                <input type="date" class="form-control" id="sdate" name="sdate" value="@if($todo->repeat == 1){{date("Y-m-d")}}@else{{ $todo->sdate }}@endif">
+                <input type="date" class="form-control" id="sdate" name="sdate" value="{{date("Y-m-d")}}">
             </div>
             <div class="form-group">
                 <label for="stime">시작시간</label>
-                <input type="time" class="form-control" id="stime" name="stime" value="@if($todo->repeat == 1){{date("H:i")}}@else{{ $todo->stime }}@endif">
+                <input type="time" class="form-control" id="stime" name="stime" value="{{date("H:i")}}">
             </div>
             <div class="form-group">
                 <label for="edate">종료일</label>

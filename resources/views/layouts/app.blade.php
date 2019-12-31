@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -41,6 +42,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/memory">Memory</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/word">Word</a>
                         </li>
                     </ul>
 
